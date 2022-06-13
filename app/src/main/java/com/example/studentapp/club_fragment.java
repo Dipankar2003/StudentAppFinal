@@ -2,6 +2,7 @@ package com.example.studentapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,12 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 
@@ -25,13 +32,9 @@ public class club_fragment extends Fragment {
     }
 
     RecyclerView rcv;
-    myadapter adapter;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
+    AllclubAdapter adapter;
+    ArrayList<Allclub> list;
+    DatabaseReference reference;
 
 
     @Override
@@ -39,12 +42,46 @@ public class club_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_club_fragment, container, false);
-        rcv=v.findViewById(R.id.recview);
-       rcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        Toast.makeText(getContext(), "enter2", Toast.LENGTH_SHORT).show();
+        rcv=v.findViewById(R.id.recview1);
+        Toast.makeText(getContext(), "enter4", Toast.LENGTH_SHORT).show();
 
-        adapter=new myadapter(dataqueue());
+        rcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        Toast.makeText(getContext(), "enter5", Toast.LENGTH_SHORT).show();
+
+
+        list= new ArrayList<>();
+       adapter=new AllclubAdapter(list,getContext());
+        Toast.makeText(getContext(), "enter4", Toast.LENGTH_SHORT).show();
+
+        reference= FirebaseDatabase.getInstance().getReference();
+       reference.child("Club").addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot snapshot) {
+               for(DataSnapshot dataSnapshot: snapshot.getChildren())
+               {
+                   Allclub model=dataSnapshot.child("Profile").getValue(Allclub.class);
+                   list.add(model);
+               }
+               adapter.notifyDataSetChanged();
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+
+           }
+       });
+        Toast.makeText(getContext(), "enter5", Toast.LENGTH_SHORT).show();
+
+
+        // adapter=new myadapter(dataqueue());
+
         rcv.setAdapter(adapter);
+        Toast.makeText(getContext(), "enter6", Toast.LENGTH_SHORT).show();
+/*
         Button b1=v.findViewById(R.id.dept);
+        Toast.makeText(getContext(), "enter7", Toast.LENGTH_SHORT).show();
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,12 +95,14 @@ public class club_fragment extends Fragment {
                         {
                             case R.id.it:
                                 Toast.makeText(getContext(),"ITtttttttttttt",Toast.LENGTH_LONG).show();
+
                                 break;
                             case R.id.cse:
                                 Toast.makeText(getContext(),"Cseeeeee",Toast.LENGTH_LONG).show();
                                 break;
                         }
 
+                        Toast.makeText(getContext(), "enter", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 });
@@ -71,6 +110,10 @@ public class club_fragment extends Fragment {
 
             }
         });
+        */
+
+        Toast.makeText(getContext(), "enter8", Toast.LENGTH_SHORT).show();
+/*
         Button b=v.findViewById(R.id.type);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +133,7 @@ public class club_fragment extends Fragment {
                                 Toast.makeText(getContext(),"nontechical",Toast.LENGTH_LONG).show();
                                 break;
                         }
+                        Toast.makeText(getContext(), "enter9", Toast.LENGTH_SHORT).show();
 
 
 
@@ -97,13 +141,17 @@ public class club_fragment extends Fragment {
                         return true;
                     }
                 });
+                Toast.makeText(getContext(), "enter10", Toast.LENGTH_SHORT).show();
+
                 popupMenu.show();
             }
-        });
+        });*/
+        Toast.makeText(getContext(), "enter9", Toast.LENGTH_SHORT).show();
+
 
         return v;
     }
-    public ArrayList<Model> dataqueue()
+ /*   public ArrayList<Model> dataqueue()
     {
 
         ArrayList<Model> holder=new ArrayList<>();
@@ -154,5 +202,7 @@ public class club_fragment extends Fragment {
 
         return holder;
     }
+
+  */
 
 }

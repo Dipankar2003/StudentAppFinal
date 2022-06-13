@@ -45,7 +45,7 @@ public class myclub_fragment extends Fragment {
         mLayoutManager=new GridLayoutManager(getActivity(),2);
         rcv.setLayoutManager(mLayoutManager);
 
-        adapter=new adapter_myclub(dataqueue());
+        //adapter=new adapter_myclub(dataqueue());
         rcv.setAdapter(adapter);
 
         b1=v.findViewById(R.id.fav_club);
@@ -62,15 +62,15 @@ public class myclub_fragment extends Fragment {
         return v;
     }
 
-    public ArrayList<Model> dataqueue()
+   /* public ArrayList<Model> dataqueue()
     {
 
         ArrayList<Model> holder=new ArrayList<>();
         Model ob2=new Model();
-        ob2.setHeader("SAIT");
-        ob2.setDesc("Technical");
-        ob2.setImgname(R.drawable.sait);
-        holder.add(ob2);
+//        ob2.setHeader("SAIT");
+//        ob2.setDesc("Technical");
+//        ob2.setImgname(R.drawable.sait);
+//        holder.add(ob2);
 
 
 
@@ -112,6 +112,6 @@ public class myclub_fragment extends Fragment {
 
 
         return holder;
-    }
+    }*/
 
 }

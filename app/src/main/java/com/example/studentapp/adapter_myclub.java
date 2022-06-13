@@ -26,9 +26,9 @@ public class adapter_myclub extends RecyclerView.Adapter<myviewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
-        holder.t1.setText(data.get(position).getHeader());
-        holder.t2.setText(data.get(position).getDesc());
-        holder.img.setImageResource(data.get(position).getImgname());
+       // holder.t1.setText(data.get(position).getHeader());
+       // holder.t2.setText(data.get(position).getDesc());
+      //  holder.img.setImageResource(data.get(position).getImgname());
 
 
 

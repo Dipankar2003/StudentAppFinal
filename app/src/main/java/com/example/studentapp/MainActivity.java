@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -36,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_cal:
                         fragment = new calender_fragment();
                         break;
-                    case R.id.nav_profile:
-                        fragment = new profile_fragment();
-                        break;
+                  //  case R.id.nav_profile:
+                      //  fragment = new profile_fragment();
+                     //   break;
                     case R.id.nav_club:
+                        Toast.makeText(MainActivity.this, "enter", Toast.LENGTH_SHORT).show();
                         fragment=new club_fragment();
                         break;
 //                    case R.id.nav_myclub:
