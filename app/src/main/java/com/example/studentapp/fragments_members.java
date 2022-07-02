@@ -28,6 +28,8 @@ public class fragments_members extends Fragment {
 
         MemberAdapter memberAdapter = new MemberAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
+      //  String name=getArguments().getString("Club_name");
+
         memberAdapter.addFragment(new fragment_mentor_board(),"Mentor Board");
         memberAdapter.addFragment(new fragment_main_board(),"Main Board");
         memberAdapter.addFragment(new fragment_assistant_board(),"Assistant Board");

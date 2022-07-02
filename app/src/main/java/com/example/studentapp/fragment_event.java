@@ -39,6 +39,7 @@ public class fragment_event extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_event, container, false);
 
+        String name=getArguments().getString("Club_name");
        // btn_organize_event = view.findViewById(R.id.btn_organize);
         rv = view.findViewById(R.id.rv_event);
         arrayList = new ArrayList<>();
@@ -83,7 +84,7 @@ public class fragment_event extends Fragment {
             }
         });*/
         //
-        database.child("Club").child("WSM").child("Event").addValueEventListener(new ValueEventListener() {
+        database.child("Club").child(name).child("Event").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();

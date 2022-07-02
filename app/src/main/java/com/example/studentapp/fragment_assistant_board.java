@@ -44,7 +44,10 @@ public class fragment_assistant_board extends Fragment {
 
         ed_search = view.findViewById(R.id.ed_search);
         recyclerView = view.findViewById(R.id.rv);
-     //   btn_add_assistant_board = view.findViewById(R.id.btn_assistant_add);
+
+        String name=getArguments().getString("Club_name");
+
+        //   btn_add_assistant_board = view.findViewById(R.id.btn_assistant_add);
         arrayList = new ArrayList<>();
 
 //        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
@@ -65,6 +68,7 @@ public class fragment_assistant_board extends Fragment {
                 Toast.makeText(getContext(),mainBoardPOJO.getName(),Toast.LENGTH_SHORT).show();
                 String position=mainBoardPOJO.getPosition().toString();
 
+
 //                Intent intent = new Intent(getContext(),EditActivity.class);
 //                intent.putExtra("CALLED_FROM",3);
 //                intent.putExtra("pos", position);
@@ -74,7 +78,7 @@ public class fragment_assistant_board extends Fragment {
 
 
         //
-        database.child("Club").child(currentUser).child("Board").child("Assistant").addValueEventListener(new ValueEventListener() {
+        database.child("Club").child(name).child("Board").child("Assistant").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();

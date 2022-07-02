@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -54,7 +55,8 @@ public class slideadapter extends RecyclerView.Adapter<slideadapter.sliderviewho
         void setImage(slideitem sliderItem) {
 
 
-            imageView.setImageResource(sliderItem.getImage());
+            Glide.with(imageView.getContext()).load(sliderItem.getImage()).into(imageView);
+           // imageView.setImageResource(sliderItem.getImage());
         }
     }
 

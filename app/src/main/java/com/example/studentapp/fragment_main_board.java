@@ -47,6 +47,9 @@ public class fragment_main_board extends Fragment {
         ed_search = view.findViewById(R.id.ed_search);
         recyclerView = view.findViewById(R.id.rv);
        // button = view.findViewById(R.id.btn_main_board_add);
+
+        String name=getArguments().getString("Club_name");
+
         arrayList = new ArrayList<>();
 
         //Add main member board information from firebase to arrayList
@@ -82,7 +85,7 @@ public class fragment_main_board extends Fragment {
 
         Toast.makeText(getContext(), "enter1", Toast.LENGTH_SHORT).show();
         //
-        database.child("Club").child(currentUser).child("Board").child("Main").addValueEventListener(new ValueEventListener() {
+        database.child("Club").child(name).child("Board").child("Main").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();

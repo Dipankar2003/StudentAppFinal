@@ -38,7 +38,7 @@ public class home extends Fragment {
     public TextView username;
     public TextView thought;
     private static  String currentuser;
-  //  FirebaseUser user;
+   FirebaseUser user;
 
 
     @Override
@@ -46,8 +46,14 @@ public class home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        Toast.makeText(getContext(),"entering..", Toast.LENGTH_SHORT).show();
+
+
+       String name=getArguments().getString("Club_name");
+    //  Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();  ;
+        Toast.makeText(getContext(), "User.."+name, Toast.LENGTH_SHORT).show();
 
 
         imageSlider = view.findViewById(R.id.image_slider);
@@ -63,11 +69,11 @@ public class home extends Fragment {
        // user= FirebaseAuth.getInstance().getCurrentUser();
 
         //currentuser=user.getDisplayName();
-/*
-        FirebaseDatabase.getInstance().getReference().child("Club").child(currentuser).child("Profile").addValueEventListener(new ValueEventListener() {
+
+        FirebaseDatabase.getInstance().getReference().child("Club").child(name).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                username.setText(currentuser);
+                username.setText(name);
                 thought.setText(snapshot.child("Thought").getValue(String.class));
                 String uri=snapshot.child("Logo").getValue().toString();
                 Glide.with(clublogo.getContext()).load(uri).into(clublogo);
@@ -77,11 +83,11 @@ public class home extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
 
         arrayList = new ArrayList<>();
         final List<SlideModel> list=new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference().child("Club").child("AAA").child("Event").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Club").child(name).child("Event").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
@@ -89,6 +95,24 @@ public class home extends Fragment {
                     String uri=data.child("Banner").getValue().toString();
                     list.add(new SlideModel(uri, ScaleTypes.FIT));
                     imageSlider.setImageList(list,ScaleTypes.FIT);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        final List<SlideModel> list2=new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("Club").child(name).child("Club Service").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+
+                    String uri=data.child("Banner").getValue().toString();
+                    list2.add(new SlideModel(uri,ScaleTypes.FIT));
+                    imageSlider2.setImageList(list2,ScaleTypes.FIT);
                 }
             }
 

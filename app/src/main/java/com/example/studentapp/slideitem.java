@@ -1,12 +1,12 @@
 package com.example.studentapp;
 
 public class slideitem {
-    private int image;
-    slideitem(int image)
+    private String image;
+    slideitem(String image)
     {
         this.image=image;
     }
-    public int getImage()
+    public String getImage()
     {
         return  image;
     }

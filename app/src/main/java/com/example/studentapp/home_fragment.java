@@ -17,6 +17,10 @@ import android.view.ViewGroup;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,9 @@ public class home_fragment extends Fragment {
     private ViewPager2 viewPager2;
     private Handler slidehanlder=new Handler();
 
+    public ArrayList<SlideModel> arrayList;
+    slideadapter slideadapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,13 +42,37 @@ public class home_fragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_home_fragment, container, false);
         imageSlider=v.findViewById(R.id.imagesl);
         viewPager2=v.findViewById(R.id.viewpager);
-        List<slideitem> slideitems=new ArrayList<>();
-        slideitems.add(new slideitem(R.drawable.event));
-        slideitems.add(new slideitem(R.drawable.event));
-        slideitems.add(new slideitem(R.drawable.event));
-        slideitems.add(new slideitem(R.drawable.event));
 
-        viewPager2.setAdapter(new slideadapter(slideitems,viewPager2));
+
+        List<slideitem> slideitems=new ArrayList<>();
+        slideadapter =new slideadapter(slideitems,viewPager2);
+
+        FirebaseDatabase.getInstance().getReference().child("CSBanner").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                slideitems.clear();
+                for(DataSnapshot data: snapshot.getChildren()){
+
+                    String uri=data.child("Banner").getValue().toString();
+                    slideitems.add(new slideitem(uri));
+                }
+                slideadapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        List<slideitem> slideitems=new ArrayList<>();
+//        slideitems.add(new slideitem(R.drawable.event));
+//        slideitems.add(new slideitem(R.drawable.event));
+//        slideitems.add(new slideitem(R.drawable.event));
+//        slideitems.add(new slideitem(R.drawable.event));
+
+        viewPager2.setAdapter(slideadapter);
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(3);
@@ -67,12 +98,32 @@ public class home_fragment extends Fragment {
         });
 
 
+        ArrayList<SlideModel> slideModels=new ArrayList<>();
 
-        slideModels.add(new SlideModel(R.drawable.b1, null));
-        slideModels.add(new SlideModel(R.drawable.b1, null));
-        slideModels.add(new SlideModel(R.drawable.b1, null));
-        slideModels.add(new SlideModel(R.drawable.b1, null));
-        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+       // final List<SlideModel> list=new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("EventBanner").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+
+                    String uri=data.child("Banner").getValue().toString();
+                    slideModels.add(new SlideModel(uri,  null));
+                    imageSlider.setImageList(slideModels,ScaleTypes.CENTER_CROP);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+//        slideModels.add(new SlideModel(R.drawable.b1, null));
+//        slideModels.add(new SlideModel(R.drawable.b1, null));
+//        slideModels.add(new SlideModel(R.drawable.b1, null));
+//        slideModels.add(new SlideModel(R.drawable.b1, null));
+       // imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
         return  v;
     }
     private  Runnable sliderRunnable=new Runnable() {
@@ -94,5 +145,4 @@ public class home_fragment extends Fragment {
         slidehanlder.postDelayed(sliderRunnable,3000);
     }
 
-    ArrayList<SlideModel> slideModels=new ArrayList<>();
 }

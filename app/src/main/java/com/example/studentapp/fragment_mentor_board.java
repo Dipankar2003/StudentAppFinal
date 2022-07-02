@@ -46,6 +46,8 @@ public class fragment_mentor_board extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_mentor_board, container, false);
         ed_search = view.findViewById(R.id.ed_search);
         recyclerView = view.findViewById(R.id.rv);
+        String name=getArguments().getString("Club_name");
+        Toast.makeText(getContext(), "mentor" +name, Toast.LENGTH_SHORT).show();
      //   btn_add_mentor = view.findViewById(R.id.btn_mentor_add);
 
         arrayList = new ArrayList<>();
@@ -67,7 +69,7 @@ public class fragment_mentor_board extends Fragment {
         });
 
         //
-        database.child("Club").child(currentUser).child("Board").child("Mentor").addValueEventListener(new ValueEventListener() {
+        database.child("Club").child(name).child("Board").child("Mentor").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();

@@ -10,15 +10,21 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.navigationBar);
+
+        reference= FirebaseDatabase.getInstance().getReference("networksecurity");
+        reference.keepSynced(true);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new home_fragment()).commit();
 
         bottomNavigationView.setSelectedItemId(R.id.nav_home);

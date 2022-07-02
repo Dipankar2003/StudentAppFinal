@@ -47,9 +47,10 @@ public class AllclubAdapter extends RecyclerView.Adapter<AllclubAdapter.MyViewHo
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), holder.name.getText(), Toast.LENGTH_SHORT).show();
+                String name= holder.name.getText().toString();
                 Intent intent = new Intent(view.getContext(),MainActivity2.class);
                 intent.putExtra("CALLED_FROM",1);
-                intent.putExtra("student",list.get(position).getUserName());
+                intent.putExtra("student",name);
                 view.getContext().startActivity(intent);
             }
         });

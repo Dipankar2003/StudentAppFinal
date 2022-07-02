@@ -42,17 +42,17 @@ public class club_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_club_fragment, container, false);
-        Toast.makeText(getContext(), "enter2", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "enter2", Toast.LENGTH_SHORT).show();
         rcv=v.findViewById(R.id.recview1);
-        Toast.makeText(getContext(), "enter4", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "enter4", Toast.LENGTH_SHORT).show();
 
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
-        Toast.makeText(getContext(), "enter5", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), "enter5", Toast.LENGTH_SHORT).show();
 
 
         list= new ArrayList<>();
        adapter=new AllclubAdapter(list,getContext());
-        Toast.makeText(getContext(), "enter4", Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(getContext(), "enter4", Toast.LENGTH_SHORT).show();
 
         reference= FirebaseDatabase.getInstance().getReference();
        reference.child("Club").addValueEventListener(new ValueEventListener() {
@@ -71,13 +71,13 @@ public class club_fragment extends Fragment {
 
            }
        });
-        Toast.makeText(getContext(), "enter5", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), "enter5", Toast.LENGTH_SHORT).show();
 
 
         // adapter=new myadapter(dataqueue());
 
         rcv.setAdapter(adapter);
-        Toast.makeText(getContext(), "enter6", Toast.LENGTH_SHORT).show();
+   //     Toast.makeText(getContext(), "enter6", Toast.LENGTH_SHORT).show();
 /*
         Button b1=v.findViewById(R.id.dept);
         Toast.makeText(getContext(), "enter7", Toast.LENGTH_SHORT).show();
